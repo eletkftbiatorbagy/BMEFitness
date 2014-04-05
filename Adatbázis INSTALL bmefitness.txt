@@ -54,7 +54,7 @@ hirlevel boolean DEFAULT false,
 email varchar(50),
 avatar varchar(15) DEFAULT '',
 keparany integer DEFAULT 1,
-regisztracio timestamp DEFAULT 0,
+regisztracio timestamp,
 forum boolean DEFAULT true,
 CONSTRAINT felhasznalok_pk PRIMARY KEY(id)
 );
@@ -92,7 +92,7 @@ CREATE TABLE fitness.orak
 	alcim varchar(30),
 	leiras varchar,
 	perc integer,
-	belepodij boolean DEFAULT 0,
+	belepodij boolean DEFAULT false,
 	max_letszam integer DEFAULT 0,
 	color varchar(6),
 	CONSTRAINT orak_pk PRIMARY KEY(id)
