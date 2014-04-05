@@ -53,9 +53,10 @@ ho varchar(2) DEFAULT 0,
 nap varchar(2) DEFAULT 0,
 hirlevel boolean DEFAULT false,
 email varchar(50),
-face varchar(15) DEFAULT '',
+avatar varchar(15) DEFAULT '',
 keparany integer DEFAULT 1,
 regisztracio timestamp DEFAULT 0,
+forum boolean DEFAULT true,
 CONSTRAINT felhasznalok_pk PRIMARY KEY(id)
 );
 ALTER TABLE fitness.felhasznalok OWNER TO bme_group;
@@ -120,11 +121,30 @@ CREATE TABLE fitness.naptar
 	aktiv boolean DEFAULT true,
 	torolve boolean DEFAULT false,
 	torolve_mikor timestamp,
+	torolve_id integer,
 	tol timestamp,
 	ig  timestamp,
-	ismetlodes boolean DEFAULT false,
+	ismetlodes integer DEFAULT 0,
 	parent_id integer DEFAULT 0,
-	
+	ora integer,
+	edzo integer,
+	resztvevok[] integer,
+	berlo integer,
+	OK integer DEFAULT 0,
+	visszaigazolva timestamp,
+	visszaigazolta integer,
+	meghivottak[] integer,
 	CONSTRAINT naptar_pk PRIMARY KEY(id)
+);
+ALTER TABLE fitness.naptar OWNER TO bme_group;
+
+CREATE TABLE fitness.forum
+(
+	id serial,
+	felhasznalo integer,
+	datum timestamp,
+	szoveg varchar(100),
+	valasz integer DEFAULT 0,
+	CONSTRAINT forum_pk PRIMARY KEY(id)
 );
 ALTER TABLE fitness.naptar OWNER TO bme_group;
