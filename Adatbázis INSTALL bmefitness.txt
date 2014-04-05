@@ -35,6 +35,7 @@ username varchar(20),
 status integer DEFAULT 3,
 foglalas integer DEFAULT 0,
 nemjott integer DEFAULT 0,
+visszamondas integer DEFAULT 0,
 jelszo varchar(32),
 aktiv boolean DEFAULT false,
 root boolean DEFAULT false,
@@ -80,24 +81,12 @@ CREATE TABLE fitness.termek
 );
 ALTER TABLE fitness.termek OWNER TO bme_group;
 
-CREATE TABLE fitness.foglalkozasok
+CREATE TABLE fitness.orak
 (
 	id serial,
 	sorszam integer,
-	foto[] varchar(8),
-	nev varchar(25),
-	rovid_nev varchar(10),
-	alcim varchar(30),
-	leiras varchar,
-	max_letszam[] integer DEFAULT 0,
-	CONSTRAINT termek_pk PRIMARY KEY(id)
-);
-ALTER TABLE fitness.termek OWNER TO bme_group;
-
-CREATE TABLE fitness.foglalkozasok
-(
-	id serial,
-	sorszam integer,
+	foto varchar(8),
+	logo varchar(8),
 	nev varchar(25),
 	rovid_nev varchar(10),
 	alcim varchar(30),
@@ -105,7 +94,37 @@ CREATE TABLE fitness.foglalkozasok
 	perc integer,
 	belepodij boolean DEFAULT 0,
 	max_letszam[] integer DEFAULT 0,
-	CONSTRAINT termek_pk PRIMARY KEY(id)
+	color varchar(6),
+	CONSTRAINT orak_pk PRIMARY KEY(id)
 );
-ALTER TABLE fitness.termek OWNER TO bme_group;
+ALTER TABLE fitness.orak OWNER TO bme_group;
 
+CREATE TABLE fitness.edzok
+(
+	id serial,
+	sorszam integer,
+	foto varchar(8),
+	vnev varchar(30),
+	knev varchar(30),
+	rovid_nev varchar(10),
+	alcim varchar(30),
+	leiras varchar,
+	ertekeles integer,
+	CONSTRAINT edzok_pk PRIMARY KEY(id)
+);
+ALTER TABLE fitness.edzok OWNER TO bme_group;
+
+CREATE TABLE fitness.naptar
+(
+	id serial,
+	aktiv boolean DEFAULT true,
+	torolve boolean DEFAULT false,
+	torolve_mikor timestamp,
+	tol timestamp,
+	ig  timestamp,
+	ismetlodes boolean DEFAULT false,
+	parent_id integer DEFAULT 0,
+	
+	CONSTRAINT naptar_pk PRIMARY KEY(id)
+);
+ALTER TABLE fitness.naptar OWNER TO bme_group;
