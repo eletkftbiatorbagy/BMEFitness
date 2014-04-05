@@ -30,7 +30,6 @@ ALTER TABLE fitness.preferences OWNER TO bme_group;
 CREATE TABLE fitness.felhasznalok
 ( 
 id serial,
-macaddr macaddress,
 username varchar(20),
 status integer DEFAULT 3,
 foglalas integer DEFAULT 0,
@@ -94,7 +93,7 @@ CREATE TABLE fitness.orak
 	leiras varchar,
 	perc integer,
 	belepodij boolean DEFAULT 0,
-	max_letszam[] integer DEFAULT 0,
+	max_letszam integer DEFAULT 0,
 	color varchar(6),
 	CONSTRAINT orak_pk PRIMARY KEY(id)
 );
@@ -147,4 +146,4 @@ CREATE TABLE fitness.forum
 	valasz integer DEFAULT 0,
 	CONSTRAINT forum_pk PRIMARY KEY(id)
 );
-ALTER TABLE fitness.naptar OWNER TO bme_group;
+ALTER TABLE fitness.forum OWNER TO bme_group;
