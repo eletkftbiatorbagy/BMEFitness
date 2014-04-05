@@ -66,7 +66,7 @@ CREATE TABLE fitness.info
 	bemutatkozas varchar,
 	hazirend varchar,
 	nyitvatartas varchar,
-	terkep varchar,
+	terkep varchar
 );
 ALTER TABLE fitness.info OWNER TO bme_group;
 
@@ -127,12 +127,12 @@ CREATE TABLE fitness.naptar
 	parent_id integer DEFAULT 0,
 	ora integer,
 	edzo integer,
-	resztvevok[] integer,
+	resztvevok integer[],
 	berlo integer,
 	OK integer DEFAULT 0,
 	visszaigazolva timestamp,
 	visszaigazolta integer,
-	meghivottak[] integer,
+	meghivottak integer[],
 	CONSTRAINT naptar_pk PRIMARY KEY(id)
 );
 ALTER TABLE fitness.naptar OWNER TO bme_group;
