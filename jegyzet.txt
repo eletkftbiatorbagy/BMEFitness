@@ -1,0 +1,32 @@
+Kategóriák:
+	- Terem:
+		Csoport, ha 0, akkor nincs csoportja
+		Csoport 1: pl sqash palya
+		Heti térképen okézgasson. Foglaló adatai. Operátornak le kell tudnia módosítani a dátumot.
+		- 3 nagy terem, csoport foglalkozások, termenként van egy órarend (termenként foglalják le)
+		- 2 Labdajáték pálya, órarend (személyként foglalják le)
+		- 4 sqash pálya (termenként foglalják le)
+	- Bemutató infó (szöveges állomány)
+		- Házirend, nyitvatartás, egyéb leírások. (TinyMCE, html szerkesztő)
+	- Shop
+		- Képek
+		- Leírás
+		- Ár
+		- Akciók
+	- Foglalkozás:
+		- Melyik teremben lehet tartani hány fővel
+		- Foglalkozás törlésekor vagy áthelyezésekor miért törlik.
+		
+		
+Shop, Edzők, Foglalkozás, Terem
+Fotó, Név/Cím, Leírás, Ár/Telefonszám, Max létszám
+Bemutató felvitele
+
+Naptár:
+	- Dátum tól-ig (hetente, jobbra/balra lehet változtatni), Terem
+	- fel lehessen vinni rendszeres/egyszeri időpont foglaltság felvitele (nem lehet foglalni, inaktív időpont)
+		(fel lehessen vinni összes teremben foglalást egyszerre, figyelmeztessen, hogy van-e már foglalás, és visszajelezni)
+	- egy hétre előre lehetésges csak a felhasználóknak.
+		
+		
+Terem -> Foglalkozás -> Oktató (edzők)
