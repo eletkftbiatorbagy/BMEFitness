@@ -1,0 +1,111 @@
+SET datestyle TO 'ISO, YMD';
+
+CREATE USER bme
+ PASSWORD 'fitness'
+ NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE;
+
+CREATE GROUP bme_group
+   WITH USER bme; 
+ 
+CREATE DATABASE bmefitness
+   OWNER = bme_group
+   ENCODING = 'UTF-8';
+
+\c bmefitness
+
+ 
+CREATE SCHEMA fitness
+AUTHORIZATION bme_group;  
+
+CREATE TABLE fitness.preferences
+(
+	nev varchar,
+	cim varchar,
+	telefon varchar(20),
+	email varchar(50),
+	max_elofoglalas_nap integer
+);
+ALTER TABLE fitness.preferences OWNER TO bme_group;
+
+CREATE TABLE fitness.felhasznalok
+( 
+id serial,
+macaddr macaddress,
+username varchar(20),
+status integer DEFAULT 3,
+foglalas integer DEFAULT 0,
+nemjott integer DEFAULT 0,
+jelszo varchar(32),
+aktiv boolean DEFAULT false,
+root boolean DEFAULT false,
+sysop boolean DEFAULT false,
+lastlogin timestamp,
+nem integer DEFAULT 0,
+vnev varchar(30),
+knev varchar(30),
+varos varchar(30),
+cim varchar(50),
+irsz varchar(8),
+tel varchar(20),
+ev varchar(4) DEFAULT 0,
+ho varchar(2) DEFAULT 0,
+nap varchar(2) DEFAULT 0,
+hirlevel boolean DEFAULT false,
+email varchar(50),
+face varchar(15) DEFAULT '',
+keparany integer DEFAULT 1,
+regisztracio timestamp DEFAULT 0,
+CONSTRAINT felhasznalok_pk PRIMARY KEY(id)
+);
+ALTER TABLE fitness.felhasznalok OWNER TO bme_group;
+
+
+CREATE TABLE fitness.info
+(
+	bemutatkozas varchar,
+	hazirend varchar,
+	nyitvatartas varchar,
+	terkep varchar,
+);
+ALTER TABLE fitness.info OWNER TO bme_group;
+
+CREATE TABLE fitness.termek
+(
+	id serial,
+	sorszam integer,
+	nev varchar(20),
+	alcim varchar(20),
+	foglalhato boolean DEFAULT false,
+	CONSTRAINT termek_pk PRIMARY KEY(id)
+);
+ALTER TABLE fitness.termek OWNER TO bme_group;
+
+CREATE TABLE fitness.foglalkozasok
+(
+	id serial,
+	sorszam integer,
+	foto[] varchar(8),
+	nev varchar(25),
+	rovid_nev varchar(10),
+	alcim varchar(30),
+	leiras varchar,
+	max_letszam[] integer DEFAULT 0,
+	CONSTRAINT termek_pk PRIMARY KEY(id)
+);
+ALTER TABLE fitness.termek OWNER TO bme_group;
+
+CREATE TABLE fitness.foglalkozasok
+(
+	id serial,
+	sorszam integer,
+	nev varchar(25),
+	rovid_nev varchar(10),
+	alcim varchar(30),
+	leiras varchar,
+	perc integer,
+	belepodij boolean DEFAULT 0,
+	max_letszam[] integer DEFAULT 0,
+	CONSTRAINT termek_pk PRIMARY KEY(id)
+);
+ALTER TABLE fitness.termek OWNER TO bme_group;
+
