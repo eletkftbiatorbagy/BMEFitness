@@ -134,6 +134,7 @@ CREATE TABLE fitness.naptar
 	visszaigazolva timestamp,
 	visszaigazolta integer,
 	meghivottak integer[],
+	letrehozva timestamp,
 	CONSTRAINT naptar_pk PRIMARY KEY(id)
 );
 ALTER TABLE fitness.naptar OWNER TO bme_group;
@@ -148,3 +149,25 @@ CREATE TABLE fitness.forum
 	CONSTRAINT forum_pk PRIMARY KEY(id)
 );
 ALTER TABLE fitness.forum OWNER TO bme_group;
+
+CREATE TABLE fitness.kepek
+(
+   id serial, 
+   hash character varying(32), 
+   CONSTRAINT kepek_pm PRIMARY KEY (id)
+);
+ALTER TABLE fitness.kepek OWNER TO bme_group;
+
+CREATE OR REPLACE FUNCTION fitness.zero_if_null(ertek integer)
+  RETURNS integer AS
+$BODY$BEGIN
+IF ertek is null THEN
+return 0;
+ELSE
+return ertek;
+END IF;
+END$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION fitness.zero_if_null(integer)
+  OWNER TO bme_group;
