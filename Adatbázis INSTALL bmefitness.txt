@@ -118,6 +118,7 @@ CREATE TABLE fitness.naptar
 (
 	id serial,
 	aktiv boolean DEFAULT true,
+	letrehozva timestamp,
 	torolve boolean DEFAULT false,
 	torolve_mikor timestamp,
 	torolve_id integer,
