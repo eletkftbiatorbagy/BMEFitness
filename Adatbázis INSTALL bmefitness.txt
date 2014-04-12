@@ -19,13 +19,11 @@ AUTHORIZATION bme_group;
 
 CREATE TABLE fitness.preferences
 (
-  	id serial,
 	nev varchar,
 	cim varchar,
 	telefon varchar(20),
 	email varchar(50),
-	max_elofoglalas_nap integer,
-  	CONSTRAINT preferences_pk PRIMARY KEY (id)
+	max_elofoglalas_nap integer
 );
 ALTER TABLE fitness.preferences OWNER TO bme_group;
 
@@ -65,12 +63,10 @@ ALTER TABLE fitness.felhasznalok OWNER TO bme_group;
 
 CREATE TABLE fitness.info
 (
-  	id serial,
 	bemutatkozas varchar,
 	hazirend varchar,
 	nyitvatartas varchar,
-	terkep varchar,
-  	CONSTRAINT info_pk PRIMARY KEY (id)
+	terkep varchar
 );
 ALTER TABLE fitness.info OWNER TO bme_group;
 
