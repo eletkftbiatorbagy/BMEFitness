@@ -22,7 +22,7 @@ CREATE TABLE fitness.preferences
 	nev varchar,
 	cim varchar,
 	telefon varchar(20),
-	email varchar(50),
+	email varchar(30),
 	max_elofoglalas_nap integer
 );
 ALTER TABLE fitness.preferences OWNER TO bme_group;
@@ -51,7 +51,7 @@ ev varchar(4) DEFAULT 0,
 ho varchar(2) DEFAULT 0,
 nap varchar(2) DEFAULT 0,
 hirlevel boolean DEFAULT false,
-email varchar(50),
+email varchar(30),
 avatar varchar(15) DEFAULT '',
 keparany integer DEFAULT 1,
 regisztracio timestamp,
