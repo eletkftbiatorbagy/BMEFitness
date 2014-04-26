@@ -158,6 +158,8 @@ CREATE TABLE fitness.kepek
 );
 ALTER TABLE fitness.kepek OWNER TO bme_group;
 
+
+
 CREATE OR REPLACE FUNCTION fitness.zero_if_null(ertek integer)
   RETURNS integer AS
 $BODY$BEGIN
@@ -171,3 +173,129 @@ END$BODY$
   COST 100;
 ALTER FUNCTION fitness.zero_if_null(integer)
   OWNER TO bme_group;
+  
+  
+  
+CREATE OR REPLACE FUNCTION fitness.update_edzok_sorszam(aid integer, ujsorszam integer)
+  RETURNS SETOF fitness.edzok AS
+$BODY$DECLARE
+	asorszam integer;
+BEGIN
+	EXECUTE format('SELECT sorszam FROM fitness.edzok WHERE id = %s', aid) INTO asorszam;
+	IF asorszam = ujsorszam THEN
+		return;
+	ELSIF asorszam < ujsorszam THEN
+		DECLARE
+			novelo integer;
+			_rec record;
+		BEGIN
+			novelo := -1;
+			UPDATE fitness.edzok SET sorszam = sorszam + novelo WHERE sorszam <= ujsorszam AND sorszam > asorszam;
+		END;
+	ELSE
+		DECLARE
+			novelo integer;
+			_rec record;
+		BEGIN
+			novelo := 1;
+			UPDATE fitness.edzok SET sorszam = sorszam + novelo WHERE sorszam >= ujsorszam AND sorszam < asorszam;
+		END;
+	END IF;
+
+	DECLARE
+		_rec record;
+	BEGIN
+		UPDATE fitness.edzok SET sorszam = ujsorszam WHERE id = aid;
+		FOR _rec IN SELECT * FROM fitness.edzok WHERE id = aid LOOP
+			return next _rec;
+		END LOOP;
+	END;
+	return;
+END;$BODY$
+  LANGUAGE plpgsql VOLATILE;
+ALTER FUNCTION fitness.update_edzok_sorszam(integer, integer)
+  OWNER TO bme_group;
+  
+
+  
+CREATE OR REPLACE FUNCTION fitness.update_termek_sorszam(aid integer, ujsorszam integer)
+  RETURNS SETOF fitness.termek AS
+$BODY$DECLARE
+	asorszam integer;
+BEGIN
+	EXECUTE format('SELECT sorszam FROM fitness.termek WHERE id = %s', aid) INTO asorszam;
+	IF asorszam = ujsorszam THEN
+		return;
+	ELSIF asorszam < ujsorszam THEN
+		DECLARE
+			novelo integer;
+			_rec record;
+		BEGIN
+			novelo := -1;
+			UPDATE fitness.termek SET sorszam = sorszam + novelo WHERE sorszam <= ujsorszam AND sorszam > asorszam;
+		END;
+	ELSE
+		DECLARE
+			novelo integer;
+			_rec record;
+		BEGIN
+			novelo := 1;
+			UPDATE fitness.termek SET sorszam = sorszam + novelo WHERE sorszam >= ujsorszam AND sorszam < asorszam;
+		END;
+	END IF;
+
+	DECLARE
+		_rec record;
+	BEGIN
+		UPDATE fitness.termek SET sorszam = ujsorszam WHERE id = aid;
+		FOR _rec IN SELECT * FROM fitness.termek WHERE id = aid LOOP
+			return next _rec;
+		END LOOP;
+	END;
+	return;
+END;$BODY$
+  LANGUAGE plpgsql VOLATILE;
+ALTER FUNCTION fitness.update_termek_sorszam(integer, integer)
+  OWNER TO bme_group;
+  
+  
+CREATE OR REPLACE FUNCTION fitness.update_orak_sorszam(aid integer, ujsorszam integer)
+  RETURNS SETOF fitness.orak AS
+$BODY$DECLARE
+	asorszam integer;
+BEGIN
+	EXECUTE format('SELECT sorszam FROM fitness.orak WHERE id = %s', aid) INTO asorszam;
+	IF asorszam = ujsorszam THEN
+		return;
+	ELSIF asorszam < ujsorszam THEN
+		DECLARE
+			novelo integer;
+			_rec record;
+		BEGIN
+			novelo := -1;
+			UPDATE fitness.orak SET sorszam = sorszam + novelo WHERE sorszam <= ujsorszam AND sorszam > asorszam;
+		END;
+	ELSE
+		DECLARE
+			novelo integer;
+			_rec record;
+		BEGIN
+			novelo := 1;
+			UPDATE fitness.orak SET sorszam = sorszam + novelo WHERE sorszam >= ujsorszam AND sorszam < asorszam;
+		END;
+	END IF;
+
+	DECLARE
+		_rec record;
+	BEGIN
+		UPDATE fitness.orak SET sorszam = ujsorszam WHERE id = aid;
+		FOR _rec IN SELECT * FROM fitness.orak WHERE id = aid LOOP
+			return next _rec;
+		END LOOP;
+	END;
+	return;
+END;$BODY$
+  LANGUAGE plpgsql VOLATILE;
+ALTER FUNCTION fitness.update_orak_sorszam(integer, integer)
+  OWNER TO bme_group;
+  
