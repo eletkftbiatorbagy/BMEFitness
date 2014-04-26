@@ -299,3 +299,48 @@ END;$BODY$
 ALTER FUNCTION fitness.update_orak_sorszam(integer, integer)
   OWNER TO bme_group;
   
+
+
+CREATE OR REPLACE FUNCTION fitness.update_sorszam(atable regclass, aid integer, ujsorszam integer)
+  RETURNS boolean AS
+$BODY$DECLARE
+	asorszam integer;
+BEGIN
+	IF ujsorszam < 1 THEN
+		return false;
+	END IF;
+
+	EXECUTE format('SELECT sorszam FROM %s WHERE id = %s', atable, aid) INTO asorszam;
+	IF asorszam IS NULL OR asorszam = 0 THEN
+		return false;
+	END IF;
+
+	IF asorszam = ujsorszam THEN
+		return false;
+	END IF;
+
+	IF asorszam < ujsorszam THEN
+		DECLARE
+			novelo integer;
+			_rec record;
+		BEGIN
+			novelo := -1;
+			EXECUTE format('UPDATE %s SET sorszam = sorszam + %s WHERE sorszam <= %s AND sorszam > %s', atable, novelo, ujsorszam, asorszam);
+		END;
+	ELSE
+		DECLARE
+			novelo integer;
+			_rec record;
+		BEGIN
+			novelo := 1;
+			EXECUTE format('UPDATE %s SET sorszam = sorszam + %s WHERE sorszam >= %s AND sorszam < %s', atable, novelo, ujsorszam, asorszam);
+		END;
+	END IF;
+	EXECUTE format('UPDATE %s SET sorszam = %s WHERE id = %s', atable, ujsorszam, aid);
+	return true;
+END;$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION fitness.update_sorszam(regclass, integer, integer)
+  OWNER TO bme_group;
+  
