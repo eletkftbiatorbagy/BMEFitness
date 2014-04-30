@@ -95,6 +95,8 @@ CREATE TABLE fitness.orak
 	belepodij boolean DEFAULT false,
 	max_letszam integer DEFAULT 0,
 	color varchar(6),
+	aktiv boolean DEFAULT true,
+	listazas boolean DEFAULT true,
 	CONSTRAINT orak_pk PRIMARY KEY(id)
 );
 ALTER TABLE fitness.orak OWNER TO bme_group;
@@ -110,6 +112,7 @@ CREATE TABLE fitness.edzok
 	alcim varchar(30),
 	leiras varchar,
 	ertekeles integer,
+	aktiv boolean DEFAULT true,
 	CONSTRAINT edzok_pk PRIMARY KEY(id)
 );
 ALTER TABLE fitness.edzok OWNER TO bme_group;
