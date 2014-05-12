@@ -138,6 +138,7 @@ CREATE TABLE fitness.naptar
 	visszaigazolta integer,
 	meghivottak integer[],
 	letrehozva timestamp,
+	terem integer,
 	CONSTRAINT naptar_pk PRIMARY KEY(id)
 );
 ALTER TABLE fitness.naptar OWNER TO bme_group;
