@@ -226,3 +226,41 @@ ALTER FUNCTION fitness.update_sorszam(regclass, integer, integer)
   OWNER TO bme_group;
 
   
+
+CREATE OR REPLACE FUNCTION fitness.update_relationship(atable character varying, acolumnforid text, aid integer, aothercolumn text, avalues text)
+  RETURNS boolean AS
+$BODY$
+DECLARE
+	asap text[];
+	asap2 text[];
+	kid integer;
+	ertek integer;
+	mid integer;
+BEGIN
+	asap := string_to_array(avalues, ',');
+	FOR i IN 1 .. array_upper(asap, 1) LOOP
+		asap2 := string_to_array(asap[i], '=');
+		kid := asap2[1]::integer;
+		ertek := asap2[2]::integer;
+		EXECUTE 'SELECT id FROM fitness.' || atable || ' WHERE ' || acolumnforid || '=' || aid || ' AND ' || aothercolumn || '=' || kid INTO mid;
+		IF ertek = 1 THEN
+			IF mid is NULL THEN
+				EXECUTE 'INSERT INTO fitness.' || atable || ' (' || acolumnforid || ',' || aothercolumn || ') SELECT ' || aid || ',' || kid;
+			-- updatenek semmi ertelme, mert ugyanazt az adatot updatelne......
+			--ELSE
+			--	EXECUTE 'UPDATE fitness.' || atable || ' SET ' || acolumnforid || '=' || aid || ',' || aothercolumn || '=' || kid || ' WHERE id=' || mid;
+			END IF;
+		ELSE
+			IF mid is NOT NULL THEN
+				RAISE NOTICE 'execute delete';
+				EXECUTE 'DELETE FROM fitness.' || atable || ' WHERE id=' || mid;
+			END IF;
+		END IF;
+	END LOOP;
+	return true;
+END;$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION fitness.update_relationship(character varying, text, integer, text, text)
+  OWNER TO bme_group;
+  
