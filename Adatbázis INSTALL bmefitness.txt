@@ -29,34 +29,34 @@ ALTER TABLE fitness.preferences OWNER TO bme_group;
 
 CREATE TABLE fitness.felhasznalok
 ( 
-id serial,
-username varchar(20),
-status integer DEFAULT 3,
-foglalas integer DEFAULT 0,
-nemjott integer DEFAULT 0,
-visszamondas integer DEFAULT 0,
-jelszo varchar(32),
-aktiv boolean DEFAULT false,
-root boolean DEFAULT false,
-sysop boolean DEFAULT false,
-lastlogin timestamp,
-nem integer DEFAULT 0,
-vnev varchar(30),
-knev varchar(30),
-varos varchar(30),
-cim varchar(50),
-irsz varchar(8),
-tel varchar(20),
-ev varchar(4) DEFAULT 0,
-ho varchar(2) DEFAULT 0,
-nap varchar(2) DEFAULT 0,
-hirlevel boolean DEFAULT false,
-email varchar(30),
-avatar varchar(15) DEFAULT '',
-keparany integer DEFAULT 1,
-regisztracio timestamp,
-forum boolean DEFAULT true,
-CONSTRAINT felhasznalok_pk PRIMARY KEY(id)
+	id serial,
+	username varchar(20),
+	status integer DEFAULT 3,
+	foglalas integer DEFAULT 0,
+	nemjott integer DEFAULT 0,
+	visszamondas integer DEFAULT 0,
+	jelszo varchar(32),
+	aktiv boolean DEFAULT false,
+	root boolean DEFAULT false,
+	sysop boolean DEFAULT false,
+	lastlogin timestamp,
+	nem integer DEFAULT 0,
+	vnev varchar(30),
+	knev varchar(30),
+	varos varchar(30),
+	cim varchar(50),
+	irsz varchar(8),
+	tel varchar(20),
+	ev varchar(4) DEFAULT 0,
+	ho varchar(2) DEFAULT 0,
+	nap varchar(2) DEFAULT 0,
+	hirlevel boolean DEFAULT false,
+	email varchar(30),
+	avatar varchar(15) DEFAULT '',
+	keparany integer DEFAULT 1,
+	regisztracio timestamp,
+	forum boolean DEFAULT true,
+	CONSTRAINT felhasznalok_pk PRIMARY KEY(id)
 );
 ALTER TABLE fitness.felhasznalok OWNER TO bme_group;
 
@@ -117,6 +117,15 @@ CREATE TABLE fitness.edzok
 	CONSTRAINT edzok_pk PRIMARY KEY(id)
 );
 ALTER TABLE fitness.edzok OWNER TO bme_group;
+
+CREATE TABLE fitness.foglalkozas
+(
+	id serial,
+	edzo integer,
+	ora integer,
+	CONSTRAINT foglalkozas_pk PRIMARY KEY(id)
+);
+ALTER TABLE fitness.foglalkozas OWNER TO bme_group;
 
 CREATE TABLE fitness.naptar
 (
