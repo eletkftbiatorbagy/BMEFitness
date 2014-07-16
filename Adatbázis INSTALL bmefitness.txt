@@ -127,6 +127,15 @@ CREATE TABLE fitness.foglalkozas
 );
 ALTER TABLE fitness.foglalkozas OWNER TO bme_group;
 
+CREATE TABLE fitness.oraterme
+(
+  id serial NOT NULL,
+  ora integer,
+  terem integer,
+  CONSTRAINT oraterme_pk PRIMARY KEY (id)
+);
+ALTER TABLE fitness.oraterme OWNER TO bme_group;
+
 CREATE TABLE fitness.naptar
 (
 	id serial,
